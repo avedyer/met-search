@@ -2,21 +2,49 @@ import { useEffect, useState } from "react"
 
 export default function Form() {
 
-  const [filters, setFilters] = useState([])
-
-  const [q, setQ] = useState()  
+  const [filters, setFilters] = useState({
+    q: '', 
+    title: '',
+    departmentId: '',
+    medium: '',
+    geoLocation: '',
+    dateBegin: '',
+    dateEnd: ''
+  })
+  const [query, setQuery] = useState()
 
   useEffect(() => {
-    setFilters([`q=${q}`])
-  }, [q])
+      let newQuery = ''
+      let keys = Object.keys(filters)
+      keys.forEach((key, index) => {
+        if (filters[key]) {
+        newQuery += `${key}=${filters[key]}&`
+        }
+      })
+
+      if (newQuery.charAt(newQuery.length - 1) === '&') {
+        newQuery = newQuery.slice(0, -1)
+      }
+    setQuery(newQuery)
+  }, [filters])
+
+  useEffect(() => {
+    console.log(query)
+  }, [query])
+
+  useEffect(() => {
+    console.log(filters)
+  }, [filters])
+
+  function updateFilters(key, newValue) {
+    let newFilterObject = filters
+    newFilterObject[key] = newValue
+    setFilters({...newFilterObject})
+  }
 
   async function searchCollection() {
 
-    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?'
-
-    filters.forEach(filter => url += filter)
-
-    console.log(url)
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?' + query
 
     try {
       const response = await fetch(url, {mode: 'cors'});
@@ -41,7 +69,20 @@ export default function Form() {
 
   return (
     <form>
-      <input type='text' onChange={(e) => setQ(e.target.value)} placeholder='search terms'/>
+      <label for='keywordInput'>Keyword</label>
+      <input id='keywordInput' type='text' onChange={(e) => updateFilters('q', e.target.value)} />
+      <label for='titleInput'>Title</label>
+      <input id='titleInput' type='text' onChange={(e) => updateFilters('title', e.target.value)} />
+      <label for='departmentInput'>Department</label>
+      <input id='departmentInput' type='text' onChange={(e) => updateFilters('departmentId', e.target.value)} />
+      <label for='mediumInput'>Medium</label>
+      <input id='mediumInput' type='text' onChange={(e) => updateFilters('medium', e.target.value)} />
+      <label for='locationInput'>Location</label>
+      <input id='locationInput' type='text' onChange={(e) => updateFilters('geoLocation', e.target.value)} />
+      <label for='startDateInput'>Date Range Start</label>
+      <input id='startDateInput' type='text' onChange={(e) => updateFilters('dateBegin', e.target.value)} />
+      <label for='endDateInput'>Date Range End</label>
+      <input id='endDateInput' type='text' onChange={(e) => updateFilters('dateEnd', e.target.value)} />
       <button onClick={(e) => {e.preventDefault(); displayResultsAsJSON()}}>Submit</button>
     </form>
   )
