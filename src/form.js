@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Form() {
+export default function Form(props) {
 
   const [filters, setFilters] = useState({
     q: '', 
@@ -12,6 +12,11 @@ export default function Form() {
     dateEnd: ''
   })
   const [query, setQuery] = useState()
+  const [results, setResults] = useState([])
+
+  useEffect(() => {
+    props.passResults([...results])
+  }, [results])
 
   useEffect(() => {
       let newQuery = ''
@@ -28,14 +33,6 @@ export default function Form() {
     setQuery(newQuery)
   }, [filters])
 
-  useEffect(() => {
-    console.log(query)
-  }, [query])
-
-  useEffect(() => {
-    console.log(filters)
-  }, [filters])
-
   function updateFilters(key, newValue) {
     let newFilterObject = filters
     newFilterObject[key] = newValue
@@ -49,7 +46,7 @@ export default function Form() {
     try {
       const response = await fetch(url, {mode: 'cors'});
       const data = await response.json();
-      return data
+      setResults([...data.objectIDs])
     }
 
     catch (err) {
@@ -83,7 +80,7 @@ export default function Form() {
       <input id='startDateInput' type='text' onChange={(e) => updateFilters('dateBegin', e.target.value)} />
       <label for='endDateInput'>Date Range End</label>
       <input id='endDateInput' type='text' onChange={(e) => updateFilters('dateEnd', e.target.value)} />
-      <button onClick={(e) => {e.preventDefault(); displayResultsAsJSON()}}>Submit</button>
+      <button onClick={(e) => {e.preventDefault(); searchCollection()}}>Submit</button>
     </form>
   )
 }
