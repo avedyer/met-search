@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+}
+
+#main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  overflow-y: scroll;
+}
+#main #results {
+  position: relative;
+  overflow-y: scroll;
+}
+#main #results #deck {
+  position: absolute;
+  top: 0;
+  height: 90%;
+  width: 100%;
+  padding: 0 32px;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fill, 500px);
+  grid-gap: 16px;
+}
+#main #results #deck .card {
+  width: 332px;
+  height: 432px;
+  padding: 16px;
+  box-sizing: border-box;
+  border: 2px solid #E6E6E6;
+}
+#main #results #deck .card img {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+}
+#main #results #page-selector {
+  position: absolute;
+  bottom: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */

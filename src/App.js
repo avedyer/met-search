@@ -1,7 +1,7 @@
 import Main from './Main';
 import Object from './object';
 
-import './App.css';
+import './styles.css';
 
 import { useEffect, useState } from 'react';
 import {
@@ -25,7 +25,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Main />}/>
+        <Route path='/' element={<Main />} />
+        <Route path='/search/:query/:page' element={<Main />}/>
         <Route path='/object/:id' element={<Object />}/>
       </Routes>
     </Router>

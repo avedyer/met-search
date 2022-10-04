@@ -4,17 +4,42 @@ import PageSelector from "./pageSelector";
 
 export default function Results(props) {
 
-  const [trimmedObjIDs, setTrimmedObjIds] = useState([])
-  const [pageIndex, setPageIndex] = useState(0)
+  const [objIDs, setObjIDs] = useState([])
+  const [trimmedObjIDs, setTrimmedObjIDs] = useState([])
 
   useEffect(() => {
-    setTrimmedObjIds([...props.objectIDs.slice((props.resultsPerPage * pageIndex), (props.resultsPerPage * pageIndex) + props.resultsPerPage)])
-  }, [pageIndex, props.objectIDs, props.resultsPerPage])
+    if (props.query) {
+      searchCollection(props.query)
+    }
+  }, [props.query])
+
+  async function searchCollection(query) {
+
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?' + query
+
+    console.log(url)
+
+    try {
+      const response = await fetch(url, {mode: 'cors'});
+      const data = await response.json();
+      setObjIDs([...data.objectIDs])
+    }
+
+    catch (err) {
+      return false
+    }
+  }
+
+  useEffect(() => {
+    setTrimmedObjIDs([...objIDs.slice((props.resultsPerPage * props.pageIndex), (props.resultsPerPage * props.pageIndex) + props.resultsPerPage)])
+  }, [props.pageIndex, props.objIDs, props.resultsPerPage])
 
   return (
     <div id='results'>
-      {trimmedObjIDs.map((object) => <Card id={object} /> )}
-      <PageSelector passPageIndex={setPageIndex} pageCount={Math.ceil(props.objectIDs.length / props.resultsPerPage)}/>
+      <div id='deck'>
+        {trimmedObjIDs.map(id => <Card id={id} /> )}
+      </div>
+      <PageSelector passPageIndex={props.passPageIndex} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
     </div>
   )
 }

@@ -8,7 +8,9 @@ export default function Card(props) {
   const [objData, setObjData] = useState()
 
   useEffect(() => {
-    fetchObjData().then(result => setObjData(result))
+    if (!objData || props.id !== objData.id) {
+      fetchObjData().then(result => setObjData(result))
+    }
   }, [objData])
 
   async function fetchObjData() {
@@ -25,15 +27,20 @@ export default function Card(props) {
       return false
     }
   } 
+  
 
-  if (typeof objData === 'undefined' || objData === null ) {
-    return (
+  return(
+
+    typeof objData === 'undefined' || objData === null ?
+
+      //loading placeholder
+
       <div className='card loading' key={props.id}>loading object {props.id}...</div>
-    )
-  }
 
-  else {
-    return (
+    :
+
+      //object card
+
       <div className='card' key={props.id} onClick={() => navigate(`/object/${props.id}`)}>
         <div className='main-image'>
           <img src={objData.primaryImageSmall}/>
@@ -47,6 +54,5 @@ export default function Card(props) {
           <span className='medium'>{objData.medium}</span>
         </div>
       </div>
-    )
-  }
+  )
 }
