@@ -10,6 +10,10 @@ export default function Main() {
   const [objectIDs, setObjectIDs] = useState([])
   const [resultsPerPage, setResultsPerPage] = useState(20)
 
+  useEffect(() => {
+    console.log(objectIDs)
+  }, [objectIDs])
+
   return (
     <div className="App">
       <Form passObjectIDs={setObjectIDs} passResultsPerPage={setResultsPerPage}/>

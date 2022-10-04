@@ -16,6 +16,8 @@ export default function Form(props) {
 
   async function searchCollection() {
 
+    setObjectIDs([])
+
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?' + 'q=' + keyword
 
     try {

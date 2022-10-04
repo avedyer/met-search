@@ -5,9 +5,7 @@ export default function Card(props) {
   const [objData, setObjData] = useState()
 
   useEffect(() => {
-    if (!objData) {
-      fetchObjData()
-    }
+    fetchObjData().then(result => setObjData(result))
   }, [objData])
 
   async function fetchObjData() {
@@ -17,7 +15,7 @@ export default function Card(props) {
     try {
       const response = await fetch(url, {mode: 'cors'});
       const data = await response.json();
-      setObjData(data)
+      return data
     }
 
     catch (err) {
@@ -25,15 +23,27 @@ export default function Card(props) {
     }
   } 
 
-  if (objData) {
+  if (typeof objData === 'undefined' || objData === null ) {
     return (
-      <div className='card loading' key={props.id}>{props.id}</div>
+      <div className='card loading' key={props.id}>loading object {props.id}...</div>
     )
   }
 
   else {
     return (
-      <div className='card' key={props.id}>{props.id}</div>
+      <div className='card' key={props.id}>
+        <div className='main-image'>
+          <img src={objData.primaryImageSmall}/>
+        </div>
+        <div className='info'>
+          <span className='title'>{objData.title}</span>
+          <div className='artist-and-date'>
+            <span className='artist'>{objData.artistDisplayName}</span>
+            <span className='date'>{objData.objectDate}</span>
+          </div>
+          <span className='medium'>{objData.medium}</span>
+        </div>
+      </div>
     )
   }
 }
