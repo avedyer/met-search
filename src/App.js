@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-  const [results, setResults] = useState([])
+  const [objectIDs, setobjectIDs] = useState([])
 
   return (
     <div className="App">
-      <Form passResults={setResults}/>
-      <Results results={results} />
+      <Form passobjectIDs={setobjectIDs}/>
+      <Results objectIDs={objectIDs} />
     </div>
   );
 }
