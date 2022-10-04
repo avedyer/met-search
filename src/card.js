@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 export default function Card(props) {
+
+  let navigate = useNavigate()
 
   const [objData, setObjData] = useState()
 
@@ -31,7 +34,7 @@ export default function Card(props) {
 
   else {
     return (
-      <div className='card' key={props.id}>
+      <div className='card' key={props.id} onClick={() => navigate(`/object/${props.id}`)}>
         <div className='main-image'>
           <img src={objData.primaryImageSmall}/>
         </div>

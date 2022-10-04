@@ -13,14 +13,7 @@ export default function Results(props) {
 
   return (
     <div id='results'>
-      {
-        trimmedObjIDs.map((object) => {
-          console.log(object);
-          return(
-            <Card id={object} />
-          )
-      })
-      }
+      {trimmedObjIDs.map((object) => <Card id={object} /> )}
       <PageSelector passPageIndex={setPageIndex} pageCount={Math.ceil(props.objectIDs.length / props.resultsPerPage)}/>
     </div>
   )
