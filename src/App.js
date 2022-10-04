@@ -7,12 +7,13 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-  const [objectIDs, setobjectIDs] = useState([])
+  const [objectIDs, setObjectIDs] = useState([])
+  const [resultsPerPage, setResultsPerPage] = useState(20)
 
   return (
     <div className="App">
-      <Form passobjectIDs={setobjectIDs}/>
-      <Results objectIDs={objectIDs} />
+      <Form passObjectIDs={setObjectIDs} passResultsPerPage={setResultsPerPage}/>
+      <Results objectIDs={objectIDs} resultsPerPage={resultsPerPage}/>
     </div>
   );
 }

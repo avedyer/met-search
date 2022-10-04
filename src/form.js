@@ -3,11 +3,16 @@ import { useEffect, useState } from "react"
 export default function Form(props) {
 
   const [keyword, setKeyword] = useState('')
-  const [objectIDs, setobjectIDs] = useState([])
+  const [objectIDs, setObjectIDs] = useState([])
+  const [resultsPerPage, setResultsPerPage] = useState(20)
 
   useEffect(() => {
-    props.passobjectIDs([...objectIDs])
+    props.passObjectIDs([...objectIDs])
   }, [objectIDs])
+
+  useEffect(() => {
+    props.passResultsPerPage(resultsPerPage)
+  }, [resultsPerPage])
 
   async function searchCollection() {
 
@@ -16,7 +21,7 @@ export default function Form(props) {
     try {
       const response = await fetch(url, {mode: 'cors'});
       const data = await response.json();
-      setobjectIDs([...data.objectIDs])
+      setObjectIDs([...data.objectIDs])
     }
 
     catch (err) {
