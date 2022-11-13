@@ -1,5 +1,5 @@
 import Main from './Main';
-import Object from './object';
+import ObjectContainer from './objectContainer';
 
 import './styles.css';
 
@@ -11,23 +11,15 @@ import {
   Link
 } from "react-router-dom";
 
-function App() {
 
-  /*
-  return (
-    <div className="App">
-      <Form passObjectIDs={setObjectIDs} passResultsPerPage={setResultsPerPage}/>
-      <Results objectIDs={objectIDs} resultsPerPage={resultsPerPage}/>
-    </div>
-  );
-  */
+function App() {
 
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/search/:query/:page' element={<Main />}/>
-        <Route path='/object/:id' element={<Object />}/>
+        <Route path='/object/:id' element={<ObjectContainer />}/>
       </Routes>
     </Router>
   )

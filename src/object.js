@@ -11,11 +11,9 @@ export default function Object(props) {
     }
   }, [objData])
 
-  let { id } = useParams();
-
   async function fetchObjData() {
 
-    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + props.id
 
     try {
       const response = await fetch(url, {mode: 'cors'});
@@ -28,11 +26,9 @@ export default function Object(props) {
     }
   }
 
-  console.log(objData)
-
   return(
     <div>
-      {id}
+      {props.id}
     </div>
   )
   
