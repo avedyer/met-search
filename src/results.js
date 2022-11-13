@@ -8,16 +8,15 @@ export default function Results(props) {
   const [trimmedObjIDs, setTrimmedObjIDs] = useState([])
 
   useEffect(() => {
+    setObjIDs([])
     if (props.query) {
       searchCollection(props.query)
     }
-  }, [props.query])
+  }, [props.query, props.pageIndex])
 
   async function searchCollection(query) {
 
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?' + query
-
-    console.log(url)
 
     try {
       const response = await fetch(url, {mode: 'cors'});
@@ -32,14 +31,14 @@ export default function Results(props) {
 
   useEffect(() => {
     setTrimmedObjIDs([...objIDs.slice((props.resultsPerPage * props.pageIndex), (props.resultsPerPage * props.pageIndex) + props.resultsPerPage)])
-  }, [props.pageIndex, props.objIDs, props.resultsPerPage])
+  }, [props.pageIndex, objIDs, props.resultsPerPage])
 
   return (
     <div id='results'>
       <div id='deck'>
         {trimmedObjIDs.map(id => <Card id={id} /> )}
       </div>
-      <PageSelector passPageIndex={props.passPageIndex} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
+      <PageSelector query={props.query} passPageIndex={props.passPageIndex} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
     </div>
   )
 }
