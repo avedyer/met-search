@@ -18,7 +18,7 @@ export default function Form(props) {
 
   return (
     <form>
-      <label for='keywordInput'>Keyword</label>
+      <label htmlFor='keywordInput'>Keyword</label>
       <input id='keywordInput' type='text' onChange={(e) => setKeyword(e.target.value)} />
       <button disabled={keyword.length === 0} onClick={(e) => {e.preventDefault(); submitSearch()}}>Submit</button>
     </form>

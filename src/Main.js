@@ -12,11 +12,8 @@ export default function Main() {
   const [pageIndex, setPageIndex] = useState()
 
   useEffect(() => {
-    console.log(pageIndex)
-    if(!pageIndex) {
-      setPageIndex(page)
-    }
-  }, [pageIndex])
+    setPageIndex(page)
+  }, [pageIndex, page])
 
   return (
     <div id="main">

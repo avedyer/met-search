@@ -13,7 +13,7 @@ export default function Object(props) {
 
   async function fetchObjData() {
 
-    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + props.id
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + props.id;
 
     try {
       const response = await fetch(url, {mode: 'cors'});
