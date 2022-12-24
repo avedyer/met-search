@@ -38,7 +38,7 @@ export default function Results(props) {
       <div id='deck'>
         {trimmedObjIDs.map(id => <Card id={id} /> )}
       </div>
-      <PageSelector query={props.query} passPageIndex={props.passPageIndex} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
+      <PageSelector query={props.query} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
     </div>
   )
 }

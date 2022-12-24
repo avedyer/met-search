@@ -56,3 +56,32 @@ body {
     }
   }
 }
+
+#primary-image {
+  width: 600px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.hidden {
+  display: none;
+}
+
+#popout {
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  img.contained {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    cursor: zoom-in;
+  }
+  img {
+    cursor: zoom-out;
+  }
+}

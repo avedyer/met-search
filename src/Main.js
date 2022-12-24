@@ -12,6 +12,10 @@ export default function Main() {
   const [pageIndex, setPageIndex] = useState()
 
   useEffect(() => {
+    console.log(resultsPerPage)
+  }, [resultsPerPage])
+
+  useEffect(() => {
     setPageIndex(page)
   }, [pageIndex, page])
 

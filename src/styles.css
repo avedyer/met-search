@@ -42,4 +42,32 @@ body {
   bottom: 0;
 }
 
+#primary-image {
+  width: 600px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.hidden {
+  display: none;
+}
+
+#popout {
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0deg, 0%, 0%, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#popout img.contained {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+#popout img {
+  cursor: zoom-out;
+}
+
 /*# sourceMappingURL=styles.css.map */
