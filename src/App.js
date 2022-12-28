@@ -18,7 +18,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/search/:query/:page' element={<Main />}/>
+        <Route path='/search/:query/:offset' element={<Main />}/>
         <Route path='/object/:id' element={<ObjectContainer />}/>
       </Routes>
     </Router>

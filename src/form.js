@@ -6,15 +6,11 @@ export default function Form(props) {
   const navigate = useNavigate();
 
   const [keyword, setKeyword] = useState('')
-  const [resultsPerPage, setResultsPerPage] = useState(20)
-
+  
   function submitSearch() {
     navigate(`/search/q=${keyword}/0`)
   }
 
-  useEffect(() => {
-    props.passResultsPerPage(resultsPerPage)
-  }, [resultsPerPage])
 
   return (
     <form>
@@ -22,7 +18,7 @@ export default function Form(props) {
       <input id='keywordInput' type='text' onChange={(e) => setKeyword(e.target.value)} />
       <button disabled={keyword.length === 0} onClick={(e) => {e.preventDefault(); submitSearch()}}>Submit</button>
       <label hmtlFor='rpp-selector' >Results Per Page</label> 
-      <select id='rpp-selector' onChange={(e) => {props.passResultsPerPage(e.target.value)}}>
+      <select id='rpp-selector' defaultValue={props.defaultRPP} onChange={(e) => {props.passResultsPerPage(e.target.value)}}>
         <option value={10}>10</option>
         <option value={20}>20</option>
         <option value={50}>50</option>

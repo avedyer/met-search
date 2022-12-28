@@ -20,22 +20,42 @@ body {
   width: 100%;
   padding: 0 32px;
   overflow-y: scroll;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(auto-fill, 500px);
-  grid-gap: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #main #results #deck .card {
   width: 332px;
   height: 432px;
   padding: 16px;
+  margin: 16px;
   box-sizing: border-box;
   border: 2px solid #E6E6E6;
+  display: grid;
+  grid-template-rows: 300px 100px;
 }
 #main #results #deck .card img {
   object-fit: cover;
   width: 300px;
   height: 300px;
+}
+#main #results #deck .card .info {
+  padding: 6px 0;
+  overflow: hidden;
+}
+#main #results #deck .card .info .artist, #main #results #deck .card .info .title {
+  font-weight: bold;
+}
+#main #results #deck .card .info .title {
+  font-style: italic;
+}
+#main #results #deck .card .info * {
+  padding: 4px 0;
+  max-width: 40ch;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #main #results #page-selector {
   position: absolute;

@@ -2,27 +2,28 @@ import Form from './form';
 import Results from './results'
 
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Main() {
 
-  let { query, page } = useParams();
+  let { query, offset } = useParams();
 
-  const [resultsPerPage, setResultsPerPage] = useState(20)
-  const [pageIndex, setPageIndex] = useState()
+  const defaultRPP = 10
+
+  const [resultsPerPage, setResultsPerPage] = useState()
+
+  console.log(offset)
 
   useEffect(() => {
-    console.log(resultsPerPage)
-  }, [resultsPerPage])
-
-  useEffect(() => {
-    setPageIndex(page)
-  }, [pageIndex, page])
+    if (!resultsPerPage) {
+      setResultsPerPage(defaultRPP)
+    }
+  })
 
   return (
     <div id="main">
-      <Form passResultsPerPage={setResultsPerPage}/>
-      <Results query={query} pageIndex={pageIndex} resultsPerPage={resultsPerPage} passPageIndex={setPageIndex}/>
+      <Form passResultsPerPage={setResultsPerPage} defaultRPP={defaultRPP}/>
+      <Results query={query} offset={offset ? parseInt(offset) : 0} resultsPerPage={resultsPerPage ? parseInt(resultsPerPage) : defaultRPP}/>
     </div>
   )
 }

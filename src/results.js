@@ -12,7 +12,7 @@ export default function Results(props) {
     if (props.query) {
       searchCollection(props.query)
     }
-  }, [props.query, props.pageIndex])
+  }, [props.query, props.offset])
 
   async function searchCollection(query) {
 
@@ -30,15 +30,17 @@ export default function Results(props) {
   }
 
   useEffect(() => {
-    setTrimmedObjIDs([...objIDs.slice((props.resultsPerPage * props.pageIndex), (props.resultsPerPage * props.pageIndex) + props.resultsPerPage)])
-  }, [props.pageIndex, objIDs, props.resultsPerPage])
+    console.log(props.offset, props.resultsPerPage)
+    setTrimmedObjIDs([...objIDs.slice(props.offset, props.offset + props.resultsPerPage)])
+  }, [props.offset, objIDs, props.resultsPerPage])
+
 
   return (
     <div id='results'>
       <div id='deck'>
         {trimmedObjIDs.map(id => <Card id={id} /> )}
       </div>
-      <PageSelector query={props.query} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
+      <PageSelector resultsPerPage={props.resultsPerPage} query={props.query} pageCount={Math.ceil(objIDs.length / props.resultsPerPage)}/>
     </div>
   )
 }

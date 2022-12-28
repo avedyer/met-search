@@ -28,24 +28,49 @@ body {
       width: 100%;
       padding: 0 32px;
       overflow-y: scroll;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(auto-fill, 500px);
-      grid-gap: 16px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
 
       .card {
         width: 332px;
         height: 432px;
         padding: 16px;
+        margin: 16px;
 
         box-sizing: border-box;
 
         border: 2px solid $light-grey;
+
+        display: grid;
+        grid-template-rows: 300px 100px;
       
         img {
           object-fit: cover;
           width: 300px;
           height: 300px;
+        }
+
+        .info {
+
+          padding: 6px 0;
+          overflow: hidden;
+
+          .artist, .title {
+            font-weight: bold;
+          }
+          .title {
+            font-style: italic;
+          }
+
+          * {
+            padding: 4px 0;
+            max-width: 40ch;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
