@@ -11,8 +11,7 @@ export default function Main() {
   const defaultRPP = 10
 
   const [resultsPerPage, setResultsPerPage] = useState()
-
-  console.log(offset)
+  const [imageFilter, setImageFilter] = useState(false)
 
   useEffect(() => {
     if (!resultsPerPage) {
@@ -22,8 +21,8 @@ export default function Main() {
 
   return (
     <div id="main">
-      <Form passResultsPerPage={setResultsPerPage} defaultRPP={defaultRPP}/>
-      <Results query={query} offset={offset ? parseInt(offset) : 0} resultsPerPage={resultsPerPage ? parseInt(resultsPerPage) : defaultRPP}/>
+      <Form passResultsPerPage={setResultsPerPage} defaultRPP={defaultRPP} passImageFilter={setImageFilter}/>
+      <Results query={query} imageFilter={imageFilter} offset={offset ? parseInt(offset) : 0} resultsPerPage={resultsPerPage ? parseInt(resultsPerPage) : defaultRPP}/>
     </div>
   )
 }

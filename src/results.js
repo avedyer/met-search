@@ -30,9 +30,56 @@ export default function Results(props) {
   }
 
   useEffect(() => {
-    console.log(props.offset, props.resultsPerPage)
-    setTrimmedObjIDs([...objIDs.slice(props.offset, props.offset + props.resultsPerPage)])
+    if (props.imageFilter) {
+      filterObjects()
+    }
+    else {
+      setTrimmedObjIDs([...objIDs.slice(props.offset, props.offset + props.resultsPerPage)])
+    }
   }, [props.offset, objIDs, props.resultsPerPage])
+
+  async function filterObjects() {
+    let filteredArr = []
+
+    let index = props.offset
+    let hardStop = 150
+
+    while (filteredArr.length < props.resultsPerPage) {
+
+      let data = await fetchObjData(objIDs[index])
+
+      console.log(data)
+
+      if (data.primaryImage || data. primaryImageSmall) {
+        filteredArr.push(data.objectID)
+      }
+
+      ++index
+      --hardStop
+
+      if (index === objIDs.length || hardStop === 0) {
+        break
+      }
+    }
+    
+    console.log(filteredArr)
+    setTrimmedObjIDs([...filteredArr])
+  }
+
+  async function fetchObjData(id) {
+
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id
+
+    try {
+      const response = await fetch(url, {mode: 'cors'});
+      const data = await response.json();
+      return data
+    }
+
+    catch (err) {
+      return false
+    }
+  }
 
 
   return (

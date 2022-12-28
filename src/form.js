@@ -24,6 +24,8 @@ export default function Form(props) {
         <option value={50}>50</option>
         <option value={100}>100</option>
       </select>
+      <label htmlFor='image-filter'>Include only objects with images</label>
+      <input id='image-filter' type='checkbox' onChange={(e) => props.passImageFilter(e.target.value)}/>
     </form>
   )
 }
